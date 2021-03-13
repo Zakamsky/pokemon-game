@@ -1,13 +1,9 @@
 import s from './style.module.css'
 
-const lorem = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at dolor explicabo in iste maiores minima, minus neque pariatur qui quibusdam recusandae saepe unde, voluptatum?"
-
-const Layout = ({title, descr = lorem, urlBg, colorBg}) => {
+const Layout = ({title, urlBg, colorBg, children}) => {
     const styles = {
         backgroundImage: urlBg ? `url(${urlBg})` : null,
-        backgroundColor: colorBg ? colorBg : null,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover"
+        backgroundColor: colorBg ? colorBg : null
     }
 
     return (
@@ -19,7 +15,7 @@ const Layout = ({title, descr = lorem, urlBg, colorBg}) => {
                         <span className={s.separator}></span>
                     </div>
                     <div className={`${s.desc} ${s.full}`} >
-                        <p>{descr}</p>
+                        {children}
                     </div>
                 </article>
             </div>

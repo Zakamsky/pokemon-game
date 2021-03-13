@@ -1,6 +1,7 @@
 import s from './style.module.css'
 
 const Header = ({ title = "This is title", descr = "This is Description!"}) => {
+
     return (
         <header className={ s.root }>
             <div className={ s.forest }></div>
