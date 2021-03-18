@@ -4,6 +4,7 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
+import cn from 'classnames'
 
 import HomePage from "./routes/HomePage";
 import GamePage from "./routes/GamePage";
@@ -27,7 +28,7 @@ const App = () => {
                 <Route>
                     <>
                      <MenuHeader bgActive={!isHome} />
-                     <div className={isHome ? '' : "pageWrapper"}>
+                     <div className={cn('pageWrapper', {'isHomePage': isHome})}>
                          <Switch>
                              <Route path="/" exact component={HomePage}/>
                              <Route path="/home" component={HomePage}/>

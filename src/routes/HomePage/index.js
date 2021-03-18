@@ -1,11 +1,9 @@
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import PokemonCard from "../../components/PokemonCard";
-// import s from "./style.module.css"
 
 import bg1 from '../../assets/img/bg1.jpg'
 import bg3 from '../../assets/img/bg3.jpg'
-// import MenuHeader from "../../components/MenuHeader";
 
 const POKEMONS = [
     {
@@ -144,18 +142,14 @@ const POKEMONS = [
 
 
 
-function HomePage({ }) {
-    // const handleClickButton = (page) => {
-    //     console.log('### HomePage click')
-    //     onChangepage && onChangepage(page)
-    // }
+function HomePage() {
+
     return (
         <>
             <Header
                 title="i'm a title"
                 descr="new description"
                 isButton={true}
-                // onClickbutton={handleClickButton}
             />
             <Layout title="tilte#1" urlBg={bg1} >
                 <p>In the game two players face off against one another, one side playing as "blue", the other as "red" on a 3x3 grid.
