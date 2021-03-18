@@ -141,7 +141,8 @@ const POKEMONS = [
 ]
 
 const GamePage = () => {
-    // const [isActive, setActive] = useState(false)
+
+    const [pokemons, setPokemons] = useState(JSON.parse(JSON.stringify(POKEMONS)))
     const handleCardClick = (id) => {
         const result = pokemons.map(el => {
             if (el.id === id) {
@@ -154,9 +155,11 @@ const GamePage = () => {
             return el;
         });
         setPokemons(result);
+        console.log(POKEMONS);
+        console.log(result);
     }
 
-    const [pokemons, setPokemons] = useState(POKEMONS)
+
 
     const history = useHistory()
     const handleClick = () => {
