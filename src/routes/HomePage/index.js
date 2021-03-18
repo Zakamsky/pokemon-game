@@ -5,7 +5,7 @@ import PokemonCard from "../../components/PokemonCard";
 
 import bg1 from '../../assets/img/bg1.jpg'
 import bg3 from '../../assets/img/bg3.jpg'
-import MenuHeader from "../../components/MenuHeader";
+// import MenuHeader from "../../components/MenuHeader";
 
 const POKEMONS = [
     {
@@ -144,18 +144,18 @@ const POKEMONS = [
 
 
 
-function HomePage({ onChangepage }) {
-    const handleClickButton = (page) => {
-        console.log('### Home click')
-        onChangepage && onChangepage(page)
-    }
+function HomePage({ }) {
+    // const handleClickButton = (page) => {
+    //     console.log('### HomePage click')
+    //     onChangepage && onChangepage(page)
+    // }
     return (
         <>
-            <MenuHeader/>
             <Header
                 title="i'm a title"
                 descr="new description"
-                onClickbutton={handleClickButton}
+                isButton={true}
+                // onClickbutton={handleClickButton}
             />
             <Layout title="tilte#1" urlBg={bg1} >
                 <p>In the game two players face off against one another, one side playing as "blue", the other as "red" on a 3x3 grid.
