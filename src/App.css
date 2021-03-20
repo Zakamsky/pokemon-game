@@ -1,11 +1,15 @@
+button{
+    appearance: none;
+    border: 0;
+}
 .flex {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 }
-button,
-button:visited {
+.button,
+.button:visited {
     width: 100%;
     max-width: 240px;
     padding: 1rem;
@@ -19,8 +23,8 @@ button:visited {
     box-sizing: border-box;
 }
 
-button,
-button:visited {
+.button,
+.button:visited {
     background: #f300b4;
     border: 1px solid transparent;
     color: #fafafa;
@@ -28,7 +32,7 @@ button:visited {
     outline: none;
 }
 
-button:hover {
+.button:hover {
     background: transparent;
     border: 1px solid #f300b4;
     color: #f300b4;
@@ -36,7 +40,7 @@ button:hover {
     outline: none;
 }
 
-button:active {
+.button:active {
     background: transparent;
     border: 1px solid #f300b4;
     color: #f300b4;
@@ -47,13 +51,20 @@ button:active {
     border-right: 2px solid;
 }
 
-button:disabled {
+.button:disabled {
     opacity: .4;
     cursor: not-allowed;
 }
 
-button:disabled:hover {
+.button:disabled:hover {
     background: #f300b4;
     border: 1px solid transparent;
     color: #fafafa;
+}
+.pageWrapper{
+    min-height: calc(100vh - 100px);
+    padding: 96px 32px 24px;
+}
+.pageWrapper.isHomePage{
+    padding: 0;
 }
