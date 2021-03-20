@@ -144,16 +144,7 @@ const GamePage = () => {
 
     const [pokemons, setPokemons] = useState(JSON.parse(JSON.stringify(POKEMONS)))
     const handleCardClick = (id) => {
-        const result = pokemons.map(el => {
-            if (el.id === id) {
-                if (el["active"] !== true) {
-                    el["active"] = true;
-                } else {
-                    el["active"] = false;
-                }
-            }
-            return el;
-        });
+        const result = pokemons.map(el => el.id === id ? { ...el, active: !el.active } : el)
         setPokemons(result);
         console.log(POKEMONS);
         console.log(result);
