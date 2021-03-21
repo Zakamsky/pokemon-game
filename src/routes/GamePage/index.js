@@ -17,21 +17,23 @@ const GamePage = () => {
     }, [])
 
     const handleCardClick = (id) => {
-        console.log('### click', id)
+        // console.log('### click', id)
         setPokemons(prevState => {
             return Object.entries(prevState).reduce((acc, item) => {
                 const pokemon = {...item[1]};
                 if (pokemon.id === id) {
                     pokemon.active = !pokemon.active;
+                    // console.log(item[0]);
+                    // console.log(pokemon);
+                    database.ref('pokemons/'+ item[0]).set({
+                        ...pokemon
+                    });
                 };
-
                 acc[item[0]] = pokemon;
-
                 return acc;
             }, {});
         });
-        // const result = pokemons.map(el => el.id === id ? { ...el, active: !el.active } : el)
-        // setPokemons(result);
+
     }
 
 
@@ -39,12 +41,33 @@ const GamePage = () => {
     const handleClick = () => {
         history.push('/home')
     }
+    // console.log('### before click',pokemons);
+    const randomPokemonKey = (pok) => {
+        const pokKeys = Object.keys(pok)
+        return pokKeys[getRandom(0,4)]
+
+    }
+    const getRandom = (min, max) => { return Math.round(Math.random() * (max - min)) + min }
+    const handleAddPokemon = () => {
+        const newKey = database.ref().child('pokemons').push().key;
+        const oldKey = randomPokemonKey(pokemons)
+        const newPok = {...pokemons}
+        newPok[newKey] = {...pokemons[oldKey]}
+        console.log(newPok)
+        setPokemons(newPok)
+        database.ref('pokemons/' + newKey).set({...pokemons[oldKey]});
+    }
     return (
         <>
             <div className={cn(s.root, 'pageWrapper')}>
                 <h1>This is a Game page</h1>
                 <button className="button" onClick={ handleClick }>
                     return to Home page
+                </button>
+            </div>
+            <div className="flex">
+                <button className="button" onClick={handleAddPokemon}>
+                    Add pokemon
                 </button>
             </div>
             <div className="flex">

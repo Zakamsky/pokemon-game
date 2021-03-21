@@ -1,6 +1,5 @@
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
-import PokemonCard from "../../components/PokemonCard";
 
 import bg1 from '../../assets/img/bg1.jpg'
 import bg3 from '../../assets/img/bg3.jpg'
