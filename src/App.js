@@ -4,6 +4,7 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
+
 import cn from 'classnames'
 
 import HomePage from "./routes/HomePage";
@@ -16,6 +17,8 @@ import Footer from "./components/Footer";
 import './App.css'
 import NotFound from "./routes/NotFound";
 import ContactPage from "./routes/ContactPage";
+
+
 
 const App = () => {
     const match = useRouteMatch('/')
