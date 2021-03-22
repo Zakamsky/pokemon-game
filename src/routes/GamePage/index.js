@@ -16,24 +16,21 @@ const GamePage = () => {
         })
     }, [])
 
+    //todo: переписать обновление стэйта в .then() после обновления базы
     const handleCardClick = (id) => {
-        // console.log('### click', id)
         setPokemons(prevState => {
             return Object.entries(prevState).reduce((acc, item) => {
-                const pokemon = {...item[1]};
+                const pokemon = {...item[1]}
                 if (pokemon.id === id) {
-                    pokemon.active = !pokemon.active;
-                    // console.log(item[0]);
-                    // console.log(pokemon);
+                    pokemon.active = !pokemon.active
                     database.ref('pokemons/'+ item[0]).set({
                         ...pokemon
-                    });
-                };
+                    })
+                }
                 acc[item[0]] = pokemon;
                 return acc;
-            }, {});
-        });
-
+            }, {})
+        })
     }
 
 
@@ -49,13 +46,13 @@ const GamePage = () => {
     }
     const getRandom = (min, max) => { return Math.round(Math.random() * (max - min)) + min }
     const handleAddPokemon = () => {
-        const newKey = database.ref().child('pokemons').push().key;
+        const newKey = database.ref().child('pokemons').push().key
         const oldKey = randomPokemonKey(pokemons)
-        const newPok = {...pokemons}
-        newPok[newKey] = {...pokemons[oldKey]}
-        console.log(newPok)
-        setPokemons(newPok)
-        database.ref('pokemons/' + newKey).set({...pokemons[oldKey]});
+        const newPok = {...pokemons, [newKey]: pokemons[oldKey]}
+        // newPok[newKey] = {...pokemons[oldKey]}
+        // console.log(newPok)
+
+        database.ref('pokemons/' + newKey).set({...pokemons[oldKey]}).then(setPokemons(newPok))
     }
     return (
         <>
