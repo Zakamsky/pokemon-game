@@ -1,5 +1,5 @@
 import {
-    useRouteMatch,
+    useLocation,
     Switch,
     Route,
     Redirect
@@ -18,20 +18,24 @@ import './App.css'
 import NotFound from "./routes/NotFound";
 import ContactPage from "./routes/ContactPage";
 
+import {FireBaseContext} from "./context/firebaseContext";
+import Firebase from "./services/firebase";
 
 
 const App = () => {
-    const match = useRouteMatch('/')
-    const home = useRouteMatch('/home')
-    const isHome = match.isExact || !!home
+    const location = useLocation()
+    console.log('## location', location);
+    const isFullPage = location.pathname === '/' || location.pathname === '/home' || location.pathname === '/game/board'
 
     return (
+
+        <FireBaseContext.Provider value={new Firebase()}>
             <Switch>
-                <Route path="/404" render={NotFound}/>
+                <Route path="/404" component={NotFound}/>
                 <Route>
                     <>
-                     <MenuHeader bgActive={!isHome} />
-                     <div className={cn('pageWrapper', {'isHomePage': isHome})}>
+                     <MenuHeader bgActive={!isFullPage} />
+                     <div className={cn('pageWrapper', {'isHomePage': isFullPage})}>
                          <Switch>
                              <Route path="/" exact component={HomePage}/>
                              <Route path="/home" component={HomePage}/>
@@ -46,23 +50,10 @@ const App = () => {
                      <Footer/>
                     </>
                 </Route>
-
-
             </Switch>
-    )
+        </FireBaseContext.Provider>
 
-    // const [page, setPage] = useState('home')
-    // const handleChangePage = (page) => {
-    //     setPage(page)
-    // }
-    //     switch (page) {
-    //         case 'home':
-    //             return <HomePage onChangepage={ handleChangePage } />
-    //         case 'game':
-    //             return <GamePage  onChangepage={ handleChangePage }  />
-    //         default:
-    //             return <HomePage onChangepage={ handleChangePage } />
-    //     }
+    )
 }
 
 export default App

@@ -1,0 +1,14 @@
+.grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 40px;
+}
+.buttonWrap{
+    text-align: center;
+    padding: 2rem;
+}
+.card{
+    width: 100% !important;
+    height: 380px !important;
+    cursor: pointer;
+}
