@@ -1,87 +1,46 @@
-import {useHistory} from 'react-router-dom'
-import {useState, useEffect} from 'react'
-import database from "../../services/firebase";
-import cn from 'classnames'
+import {useState} from 'react'
+import {
+    useRouteMatch,
+    Switch,
+    Route
+} from "react-router-dom"
 
-import s from './style.module.css'
-import PokemonCard from "../../components/PokemonCard";
+import StartPage from './routes/Start'
+import BoardPage from './routes/Board'
+import FinishPage from './routes/Finish'
+
+import {PokemonContext} from '../../context/pokemonContext'
+
+
 
 const GamePage = () => {
-
-    const [pokemons, setPokemons] = useState({})
-
-    useEffect(() => {
-        database.ref('pokemons').once('value', (snapshot) => {
-            setPokemons(snapshot.val())
+    const [selectedPokemons, setSelectedPokemons] = useState({})
+    const match = useRouteMatch()
+    const handleSelectedPokemon = (key, pokemon) => {
+        setSelectedPokemons(prevState => {
+            if (prevState[key]) {
+                const copyState = {...prevState}
+                delete copyState[key]
+                return copyState
+            }
+            return {
+                ...prevState,
+                [key]: pokemon
+            }
         })
-    }, [])
-
-    //todo: переписать обновление стэйта в .then() после обновления базы
-    const handleCardClick = (id) => {
-        setPokemons(prevState => {
-            return Object.entries(prevState).reduce((acc, item) => {
-                const pokemon = {...item[1]}
-                if (pokemon.id === id) {
-                    pokemon.active = !pokemon.active
-                    database.ref('pokemons/'+ item[0]).set({
-                        ...pokemon
-                    })
-                }
-                acc[item[0]] = pokemon;
-                return acc;
-            }, {})
-        })
-    }
-
-
-    const history = useHistory()
-    const handleClick = () => {
-        history.push('/home')
-    }
-    // console.log('### before click',pokemons);
-    const randomPokemonKey = (pok) => {
-        const pokKeys = Object.keys(pok)
-        return pokKeys[getRandom(0,4)]
-
-    }
-    const getRandom = (min, max) => { return Math.round(Math.random() * (max - min)) + min }
-    const handleAddPokemon = () => {
-        const newKey = database.ref().child('pokemons').push().key
-        const oldKey = randomPokemonKey(pokemons)
-        const newPok = {...pokemons, [newKey]: pokemons[oldKey]}
-        // newPok[newKey] = {...pokemons[oldKey]}
-        // console.log(newPok)
-
-        database.ref('pokemons/' + newKey).set({...pokemons[oldKey]}).then(setPokemons(newPok))
     }
     return (
-        <>
-            <div className={cn(s.root, 'pageWrapper')}>
-                <h1>This is a Game page</h1>
-                <button className="button" onClick={ handleClick }>
-                    return to Home page
-                </button>
-            </div>
-            <div className="flex">
-                <button className="button" onClick={handleAddPokemon}>
-                    Add pokemon
-                </button>
-            </div>
-            <div className="flex">
-                {
-                    Object.entries(pokemons).map(([key, {id, name, img, type, values, active}]) => <PokemonCard
-                        key={key}
-                        name={name}
-                        img={img}
-                        id={id}
-                        type={type}
-                        values={values}
-                        isActive={active}
-                        onCardClick={handleCardClick}
-                    />)
-                }
-            </div>
-        </>
+        <PokemonContext.Provider value={{
+            pokemons: selectedPokemons,
+            onSelectedPokemon: handleSelectedPokemon
+
+        }}>
+            <Switch>
+                <Route path={`${match.path}/`} exact component={StartPage} />
+                <Route path={`${match.path}/board`} component={BoardPage} />
+                <Route path={`${match.path}/finish`} component={FinishPage} />
+            </Switch>
+        </PokemonContext.Provider>
     )
 }
 
