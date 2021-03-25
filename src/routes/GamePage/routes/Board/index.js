@@ -25,7 +25,9 @@ const counterWin = (board, player1, player2) => {
 
 
 const BoardPage = () => {
-    const { pokemons } = useContext(PokemonContext)
+    const context = useContext(PokemonContext)
+    const { pokemons } = {...context}
+
 
     const [board, setBoard] = useState([])
     const [player1, setPlayer1] = useState(()=>{
@@ -106,6 +108,7 @@ const BoardPage = () => {
 
     useEffect(() => {
         if ( steps === 9 ) {
+
             const [count1, count2] = counterWin(board, player1, player2)
             if (count1 > count2) {
                 alert('WIN')
@@ -114,6 +117,7 @@ const BoardPage = () => {
             } else {
                 alert('DRAW')
             }
+            history.replace('game/finish')
         }
     }, [steps])
 
