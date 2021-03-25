@@ -7,6 +7,7 @@ import {FireBaseContext} from "../../../../context/firebaseContext";
 import {PokemonContext} from "../../../../context/pokemonContext";
 
 //todo: обнулить стэйт при загрузке страницы, или показать выбраные карты... лучше первое
+// pokemonContext.cleanSelectedPokemons
 const StartPage = () => {
     const history = useHistory()
     const firebase = useContext(FireBaseContext)
@@ -61,7 +62,6 @@ const StartPage = () => {
                         isSelected={selected}
                         onCardClick={() => {
                             if ( Object.keys(pokemonContext.pokemons).length < 5 || selected ) {
-                                console.log(pokemonContext.pokemons);
                                 handleCardSelect(key)
                             }
 

@@ -30,16 +30,16 @@ const GamePage = () => {
             }
         })
     }
-    // const handleOpponentsDeck = (deck) => {
-    //     console.log('### handleOpponentsDeck:', deck )
-    //     setOpponentsDeck(...deck)
-    // }
+     const cleanSelectedPokemons = () => {
+         setSelectedPokemons(prevState => {})
+     }
     return (
         <PokemonContext.Provider value={{
             pokemons: selectedPokemons,
             opponent: opponentsDeck,
             onSelectedPokemon: handleSelectedPokemon,
             onOpponent: setOpponentsDeck,
+            cleanPokemonContext: cleanSelectedPokemons
 
         }}>
             <Switch>

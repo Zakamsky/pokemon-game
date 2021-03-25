@@ -1,18 +1,31 @@
-import {useContext} from 'react'
-// import {useHistory} from 'react-router-dom'
+import {useContext, useState} from 'react'
 import {PokemonContext} from "../../../../context/pokemonContext";
-import s from "../Start/style.module.css";
-import PokemonCard from "../../../../components/PokemonCard";
 import {useHistory} from "react-router-dom";
+import {FireBaseContext} from "../../../../context/firebaseContext";
+
+import cn from 'classnames'
+import PokemonCard from "../../../../components/PokemonCard";
+
+
+import s from "./style.module.css";
+
 
 
 const FinishPage = () => {
+    const firebase = useContext(FireBaseContext)
     const history = useHistory()
     const { pokemons } = useContext(PokemonContext)
     const { opponent }  = useContext(PokemonContext)
+    const [trophey, setTrophey] = useState(null)
+    const [selected, setSelected] = useState(null)
+
 
     const handleToStartPage = () => {
-        history.replace('/game')
+        //
+        console.log('### trophy',trophey);
+        firebase.addPokemon(trophey, ()=>{
+            history.replace('/game')
+        })
     }
 
     if (opponent.length === 0 ){
@@ -60,7 +73,12 @@ const FinishPage = () => {
                                 type={item.type}
                                 values={item.values}
                                 isActive
-                                className={s.card}
+                                className={cn(s.card, {[s.selected]: selected === item.id })}
+                                onCardClick={() => {
+                                    setSelected( item.id)
+                                    setTrophey( prevState => item )
+
+                                }}
                             />
 
 
