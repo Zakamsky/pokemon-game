@@ -18,14 +18,22 @@ const FinishPage = () => {
     const { opponent }  = useContext(PokemonContext)
     const [trophey, setTrophey] = useState(null)
     const [selected, setSelected] = useState(null)
-
+    const { isWin } = useContext(PokemonContext)
+    console.log('### context:',useContext(PokemonContext))
+    console.log('### isWin:',isWin);
+    if (Object.keys(pokemons).length === 0 && opponent.length === 0){
+        history.replace('/game')
+    }
 
     const handleToStartPage = () => {
-        //
-        console.log('### trophy',trophey);
-        firebase.addPokemon(trophey, ()=>{
-            history.replace('/game')
-        })
+        if (isWin){
+            firebase.addPokemon(trophey, ()=>{
+                history.replace('/game')
+            })
+        } else {
+            // history.replace('/game')
+            console.log('LOOOSE')
+        }
     }
 
     if (opponent.length === 0 ){
@@ -75,9 +83,11 @@ const FinishPage = () => {
                                 isActive
                                 className={cn(s.card, {[s.selected]: selected === item.id })}
                                 onCardClick={() => {
-                                    setSelected( item.id)
-                                    setTrophey( prevState => item )
-
+                                    // if ( isWin ) {
+                                        setSelected( item.id)
+                                        setTrophey( prevState => item )
+                                        console.log('WWW win?', isWin)
+                                    // }
                                 }}
                             />
 

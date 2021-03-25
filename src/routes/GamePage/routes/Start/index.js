@@ -6,8 +6,7 @@ import PokemonCard from "../../../../components/PokemonCard";
 import {FireBaseContext} from "../../../../context/firebaseContext";
 import {PokemonContext} from "../../../../context/pokemonContext";
 
-//todo: обнулить стэйт при загрузке страницы, или показать выбраные карты... лучше первое
-// pokemonContext.cleanSelectedPokemons
+
 const StartPage = () => {
     const history = useHistory()
     const firebase = useContext(FireBaseContext)
@@ -18,6 +17,7 @@ const StartPage = () => {
         firebase.getPokemonSoket((pokemons) => {
             setPokemons(pokemons)
         })
+        pokemonContext.cleanPokemonContext()
 
         return () => firebase.offPokemonSoket()
     }, [])

@@ -16,6 +16,7 @@ import {PokemonContext} from '../../context/pokemonContext'
 const GamePage = () => {
     const [selectedPokemons, setSelectedPokemons] = useState({})
     const [opponentsDeck, setOpponentsDeck] = useState([])
+    const [isWin, setIsWin] = useState(false)
     const match = useRouteMatch()
     const handleSelectedPokemon = (key, pokemon) => {
         setSelectedPokemons(prevState => {
@@ -31,12 +32,15 @@ const GamePage = () => {
         })
     }
      const cleanSelectedPokemons = () => {
-         setSelectedPokemons(prevState => {})
+         setSelectedPokemons({})
+         setIsWin(false)
      }
     return (
         <PokemonContext.Provider value={{
             pokemons: selectedPokemons,
             opponent: opponentsDeck,
+            setWin: setIsWin,
+            isWin: isWin,
             onSelectedPokemon: handleSelectedPokemon,
             onOpponent: setOpponentsDeck,
             cleanPokemonContext: cleanSelectedPokemons

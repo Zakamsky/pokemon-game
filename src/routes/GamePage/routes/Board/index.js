@@ -118,15 +118,16 @@ const BoardPage = () => {
 
             const [count1, count2] = counterWin(board, player1, player2)
             if (count1 > count2) {
+                context.setWin(true)
                 alert('WIN')
-                history.replace('/game/finish')
             } else if (count1 < count2) {
+                context.setWin(false)
                 alert('LOOSE')
-                history.replace('/game')
             } else {
+                context.setWin(false)
                 alert('DRAW')
-                history.replace('/game')
             }
+            history.replace('/game/finish')
 
         }
     }, [steps])
