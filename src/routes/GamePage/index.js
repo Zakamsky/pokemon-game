@@ -15,6 +15,7 @@ import {PokemonContext} from '../../context/pokemonContext'
 
 const GamePage = () => {
     const [selectedPokemons, setSelectedPokemons] = useState({})
+    const [opponentsDeck, setOpponentsDeck] = useState([])
     const match = useRouteMatch()
     const handleSelectedPokemon = (key, pokemon) => {
         setSelectedPokemons(prevState => {
@@ -29,10 +30,16 @@ const GamePage = () => {
             }
         })
     }
+    // const handleOpponentsDeck = (deck) => {
+    //     console.log('### handleOpponentsDeck:', deck )
+    //     setOpponentsDeck(...deck)
+    // }
     return (
         <PokemonContext.Provider value={{
             pokemons: selectedPokemons,
-            onSelectedPokemon: handleSelectedPokemon
+            opponent: opponentsDeck,
+            onSelectedPokemon: handleSelectedPokemon,
+            onOpponent: setOpponentsDeck,
 
         }}>
             <Switch>

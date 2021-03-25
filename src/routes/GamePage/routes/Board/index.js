@@ -58,6 +58,13 @@ const BoardPage = () => {
                     possession: 'red',
                 }) )
             })
+
+            context.onOpponent(()=>{
+                return player2request.data.map(item => ({
+                    ...item,
+                    possession: 'red',
+                }) )
+            })
         }
 
         fetchBoard()
@@ -117,7 +124,7 @@ const BoardPage = () => {
             } else {
                 alert('DRAW')
             }
-            history.replace('game/finish')
+            history.replace('/game/finish')
         }
     }, [steps])
 
