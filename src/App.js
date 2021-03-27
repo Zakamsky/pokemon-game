@@ -24,7 +24,6 @@ import Firebase from "./services/firebase";
 
 const App = () => {
     const location = useLocation()
-    console.log('## location', location);
     const isFullPage = location.pathname === '/' || location.pathname === '/home' || location.pathname === '/game/board'
 
     return (

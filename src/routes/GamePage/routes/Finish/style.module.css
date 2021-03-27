@@ -12,3 +12,7 @@
     height: 380px !important;
     cursor: pointer;
 }
+.selected{
+    margin-top: -20px;
+    --border: #fcc64b;
+}

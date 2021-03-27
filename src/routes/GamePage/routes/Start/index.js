@@ -17,6 +17,7 @@ const StartPage = () => {
         firebase.getPokemonSoket((pokemons) => {
             setPokemons(pokemons)
         })
+        pokemonContext.cleanPokemonContext()
 
         return () => firebase.offPokemonSoket()
     }, [])
@@ -61,7 +62,6 @@ const StartPage = () => {
                         isSelected={selected}
                         onCardClick={() => {
                             if ( Object.keys(pokemonContext.pokemons).length < 5 || selected ) {
-                                console.log(pokemonContext.pokemons);
                                 handleCardSelect(key)
                             }
 
