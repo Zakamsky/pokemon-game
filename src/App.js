@@ -19,7 +19,7 @@ import NotFound from "./routes/NotFound";
 import ContactPage from "./routes/ContactPage";
 
 import {FireBaseContext} from "./context/firebaseContext";
-import Firebase from "./services/firebase";
+import FirebaseClass from "./services/firebase";
 
 
 const App = () => {
@@ -28,7 +28,7 @@ const App = () => {
 
     return (
 
-        <FireBaseContext.Provider value={new Firebase()}>
+        <FireBaseContext.Provider value={FirebaseClass}>
             <Switch>
                 <Route path="/404" component={NotFound}/>
                 <Route>

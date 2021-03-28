@@ -3,9 +3,20 @@ import Layout from "../../components/Layout";
 
 import bg1 from '../../assets/img/bg1.jpg'
 import bg3 from '../../assets/img/bg3.jpg'
-
+import {useHistory} from "react-router-dom";
+// import {useDispatch, useSelector} from "react-redux";
+// import {plus, selectCount} from "../../store/counter";
 
 function HomePage() {
+
+    // const count = useSelector(selectCount)
+    // const dispatch = useDispatch()
+    // console.log('### homePage count:', count);
+    const history = useHistory()
+    const handleClickButton = () => {
+        history.push('/game')
+        // dispatch(plus(1))
+    }
 
     return (
         <>
@@ -13,6 +24,7 @@ function HomePage() {
                 title="i'm a title"
                 descr="new description"
                 isButton={true}
+                onClickButton={handleClickButton}
             />
             <Layout title="tilte#1" urlBg={bg1} >
                 <p>In the game two players face off against one another, one side playing as "blue", the other as "red" on a 3x3 grid.
